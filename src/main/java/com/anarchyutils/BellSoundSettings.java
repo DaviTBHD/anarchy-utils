@@ -1,7 +1,7 @@
 package com.anarchyutils;
 
 public final class BellSoundSettings {
-    public static int rangeBlocks = 128;
+    public static int rangeBlocks = 256;
 
     private BellSoundSettings() {}
 

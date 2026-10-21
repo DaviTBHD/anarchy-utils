@@ -20,7 +20,7 @@ public final class SoundConfig {
             values.load(reader);
             float wither = Float.parseFloat(values.getProperty("witherVolume", "0"));
             float bell = Float.parseFloat(values.getProperty("bellVolume", "3"));
-            int range = Integer.parseInt(values.getProperty("bellRangeBlocks", "128"));
+            int range = Integer.parseInt(values.getProperty("bellRangeBlocks", "256"));
             if (!Float.isFinite(wither) || !Float.isFinite(bell)) throw new IllegalArgumentException("Invalid volume");
             SoundManager.witherVolume = Math.clamp(wither, 0f, 1f);
             SoundManager.bellVolume = Math.clamp(bell, 0f, 3f);

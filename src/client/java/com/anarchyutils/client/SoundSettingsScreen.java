@@ -37,7 +37,7 @@ public final class SoundSettingsScreen extends Screen {
         addRenderableWidget(Button.builder(Component.literal("Restaurar padroes"), button -> {
             SoundManager.witherVolume = 0;
             SoundManager.bellVolume = 3;
-            BellSoundSettings.rangeBlocks = 128;
+            BellSoundSettings.rangeBlocks = 256;
             rebuildWidgets();
         }).bounds(x + 12, y + 184, 134, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Concluido"), button -> onClose())
