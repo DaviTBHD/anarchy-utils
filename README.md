@@ -24,7 +24,7 @@ Versões usadas pelo projeto:
 ## Instalação
 
 1. Configure uma instalação do Minecraft 26.2 com Fabric Loader.
-2. Coloque o Fabric API e o arquivo `anarchyutils-1.0.0.jar` na pasta `mods` dessa instalação.
+2. Coloque o Fabric API e o arquivo `anarchyutils-1.1.jar` na pasta `mods` dessa instalação.
 3. Inicie o jogo com o perfil Fabric.
 
 Para gerar o arquivo do mod a partir do código, siga a seção de desenvolvimento abaixo. Use o JAR normal de `build/libs/`, não o arquivo terminado em `-sources.jar`.
@@ -90,4 +90,3 @@ O cliente de desenvolvimento normalmente usa uma conta sem autenticação; para 
 ## Licença
 
 Distribuído sob **CC0-1.0**. Consulte [LICENSE](LICENSE).
-

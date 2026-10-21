@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.anarchyutils.client.SoundManager;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.client.sounds.SoundEngine;
@@ -33,6 +34,45 @@ public class SoundVolumeMixin {
             return Math.max(1, Math.round(com.anarchyutils.BellSoundSettings.rangeBlocks / volumeScale));
         }
         return resolvedSound.getAttenuationDistance();
+    }
+
+    @Redirect(
+        method = "play(Lnet/minecraft/client/resources/sounds/SoundInstance;)Lnet/minecraft/client/sounds/SoundEngine$PlayResult;",
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/sounds/SoundInstance;getX()D"),
+        remap = false
+    )
+    private double anarchyutils$playBellAtListenerX(SoundInstance sound) {
+        if (SoundManager.isBellSound(sound.getIdentifier().getPath())) {
+            var player = Minecraft.getInstance().player;
+            if (player != null) return player.getX();
+        }
+        return sound.getX();
+    }
+
+    @Redirect(
+        method = "play(Lnet/minecraft/client/resources/sounds/SoundInstance;)Lnet/minecraft/client/sounds/SoundEngine$PlayResult;",
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/sounds/SoundInstance;getY()D"),
+        remap = false
+    )
+    private double anarchyutils$playBellAtListenerY(SoundInstance sound) {
+        if (SoundManager.isBellSound(sound.getIdentifier().getPath())) {
+            var player = Minecraft.getInstance().player;
+            if (player != null) return player.getY();
+        }
+        return sound.getY();
+    }
+
+    @Redirect(
+        method = "play(Lnet/minecraft/client/resources/sounds/SoundInstance;)Lnet/minecraft/client/sounds/SoundEngine$PlayResult;",
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/sounds/SoundInstance;getZ()D"),
+        remap = false
+    )
+    private double anarchyutils$playBellAtListenerZ(SoundInstance sound) {
+        if (SoundManager.isBellSound(sound.getIdentifier().getPath())) {
+            var player = Minecraft.getInstance().player;
+            if (player != null) return player.getZ();
+        }
+        return sound.getZ();
     }
 
     @Shadow(remap = false)

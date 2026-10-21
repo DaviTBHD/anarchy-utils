@@ -3,7 +3,9 @@
 	"package": "com.anarchyutils.client.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-		"SoundVolumeMixin"
+		"SoundVolumeMixin",
+		"BellBlockEntityMixin",
+		"BellSoundPacketMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

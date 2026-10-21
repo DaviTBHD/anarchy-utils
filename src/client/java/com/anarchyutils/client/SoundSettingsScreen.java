@@ -30,14 +30,14 @@ public final class SoundSettingsScreen extends Screen {
         }).bounds(x + 12, y + 32, 276, 20).build());
         addRenderableWidget(new SettingSlider(x + 12, y + 56, "Wither", 0, 100,
             SoundManager.witherVolume * 100, "%", v -> SoundManager.witherVolume = (float) v / 100));
-        addRenderableWidget(new SettingSlider(x + 12, y + 103, "Sino", 0, 300,
-            SoundManager.bellVolume * 100, "%", v -> SoundManager.bellVolume = (float) v / 100));
-        addRenderableWidget(new SettingSlider(x + 12, y + 127, "Alcance", 16, 256,
-            BellSoundSettings.rangeBlocks, " blocos", v -> BellSoundSettings.rangeBlocks = (int) v));
+        addRenderableWidget(Button.builder(bellLabel(), button -> {
+            SoundManager.bellVolume = SoundManager.bellVolume > 0 ? 0 : 3;
+            rebuildWidgets();
+        }).bounds(x + 12, y + 103, 276, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Restaurar padroes"), button -> {
             SoundManager.witherVolume = 0;
             SoundManager.bellVolume = 3;
-            BellSoundSettings.rangeBlocks = 128;
+            BellSoundSettings.rangeBlocks = 256;
             rebuildWidgets();
         }).bounds(x + 12, y + 184, 134, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Concluido"), button -> onClose())
@@ -46,6 +46,10 @@ public final class SoundSettingsScreen extends Screen {
 
     private Component muteLabel() {
         return Component.literal("Silenciar Wither: " + (SoundManager.witherVolume == 0 ? "LIGADO" : "DESLIGADO"));
+    }
+
+    private Component bellLabel() {
+        return Component.literal("Sino global: " + (SoundManager.bellVolume > 0 ? "LIGADO" : "DESLIGADO"));
     }
 
     @Override
