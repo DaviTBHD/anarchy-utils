@@ -11,11 +11,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.anarchyutils.client.SoundManager;
 
 import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.sounds.SoundSource;
 
 @Mixin(SoundEngine.class)
 public class SoundVolumeMixin {
+
+    @Redirect(
+        method = "play(Lnet/minecraft/client/resources/sounds/SoundInstance;)Lnet/minecraft/client/sounds/SoundEngine$PlayResult;",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/resources/sounds/Sound;getAttenuationDistance()I"
+        ),
+        remap = false
+    )
+    private int anarchyutils$modifyBellRange(Sound resolvedSound, SoundInstance sound) {
+        if (SoundManager.isBellSound(sound.getIdentifier().getPath())) {
+            // SoundEngine multiplies this distance by max(instance volume, 1).
+            float volumeScale = Math.max(sound.getVolume(), 1.0f);
+            return Math.max(1, Math.round(com.anarchyutils.BellSoundSettings.rangeBlocks / volumeScale));
+        }
+        return resolvedSound.getAttenuationDistance();
+    }
 
     @Shadow(remap = false)
     private float calculateVolume(float volume, SoundSource source) {

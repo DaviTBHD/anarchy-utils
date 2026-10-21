@@ -3,11 +3,17 @@ package com.anarchyutils.client;
 
 public class SoundManager {
 
-    // Wither: 0% a 100%
+    // Som do Wither: 0% a 100%
     public static float witherVolume = 0.0f;
 
-    // Bell: 0% a 300%
+    // Som do sino: 0% a 300%
     public static float bellVolume = 3.0f;
+
+    // Distancia maxima do som do sino, em blocos, no cliente.
+
+    public static boolean isBellSound(String soundId) {
+        return com.anarchyutils.BellSoundSettings.isBellSound(soundId);
+    }
 
     public static boolean isWitherSound(String soundId) {
         return soundId.startsWith("entity.wither.");
@@ -19,7 +25,7 @@ public class SoundManager {
             return Math.max(0.0f, Math.min(witherVolume, 1.0f));
         }
 
-        if (soundId.equals("block.bell.use")) {
+        if (isBellSound(soundId)) {
             return Math.max(0.0f, Math.min(bellVolume, 3.0f));
         }
 

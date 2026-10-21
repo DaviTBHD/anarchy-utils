@@ -3,7 +3,8 @@
 	"package": "com.anarchyutils.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"ExampleMixin"
+		"ExampleMixin",
+		"BellSoundRangeMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
